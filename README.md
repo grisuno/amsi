@@ -1,5 +1,8 @@
 # AuroraPatch: AMSI Bypass Tool in Go
 
+<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/46cf574b-9449-4248-9785-eebb5cf72d01" />
+
+
 ![Go](https://img.shields.io/badge/Go-1.24.2-blue)
 ![License](https://img.shields.io/github/license/grisuno/amsi)
 
