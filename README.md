@@ -86,6 +86,8 @@ amsi.exe
 .\amsi.exe
 ```
 
+<img width="425" height="441" alt="image" src="https://github.com/user-attachments/assets/3d06033c-72b0-4318-9022-49a9f71a0e99" />
+
 Expected output:
 ```cmd
 [+] AMSI patched: AmsiScanBuffer replaced with ret
