@@ -28,6 +28,9 @@ AuroraPatch performs the following steps:
 4. Patches the first byte of `AmsiScanBuffer` with `0xC3` (`ret` instruction).
 5. Restores original memory permissions.
 
+<img width="1059" height="567" alt="image" src="https://github.com/user-attachments/assets/582f909d-4a4d-40b3-b575-ddc99934b618" />
+
+
 ## Result:  
 ✅ `AmsiScanBuffer` returns immediately — no scan occurs.  
 🛡️ Effective for bypassing AMSI during post-exploitation.
@@ -35,6 +38,53 @@ AuroraPatch performs the following steps:
 > 🔁 **In-memory only**: Patch is volatile and lasts only for the current process.
 
 ---
+
+<img width="1213" height="492" alt="image" src="https://github.com/user-attachments/assets/db5eb90a-7f63-4e68-a65e-5801a044f007" />
+
+- Library Loading: Uses syscall.LoadLibrary("amsi.dll") to dynamically load the AMSI library
+- Address Resolution: Calls syscall.GetProcAddress(amsi, "AmsiScanBuffer") to locate the target function
+- Process Access: Opens current process with windows.OpenProcess() using PROCESS_VM_OPERATION|PROCESS_VM_WRITE flags
+- Memory Protection: Modifies page permissions to PAGE_EXECUTE_READWRITE via windows.VirtualProtectEx()
+- Patch Application: Writes single byte 0xc3 (x86 ret instruction) using windows.WriteProcessMemory()
+- Permission Restoration: Returns original memory protection settings
+- Resource Cleanup: Releases handles using windows.CloseHandle() and syscall.FreeLibrary()
+
+<img width="1219" height="535" alt="image" src="https://github.com/user-attachments/assets/168d02ae-754b-443d-9850-4fc81cae4d9e" />
+
+## Framework Compatibility
+The tool integrates with red team frameworks through:
+
+- Structured Configuration: YAML-based parameter management
+- Command Automation: Predefined upload/execute/download sequences
+- Non-Privileged Operation: Compatible with user-level access scenarios
+- File Path Management: Standardized installation and execution paths
+
+## Operational Security
+Key OPSEC considerations for deployment:
+
+- Detection Evasion: Binary uses obfuscation and compression
+- Memory-Only Operation: No persistent artifacts
+- Process Isolation: Affects only the execution process
+- Temporary Effect: Bypass duration limited to process lifetime
+
+## Development Tools
+The following tools are essential for the development workflow:
+
+- **garble**: Go code obfuscation tool for binary protection
+- **upx**: Executable compression utility for size reduction
+- **MinGW-w64**: Cross-compilation toolchain for Windows targets
+- **Git**: Version control and collaboration
+
+## Cross-Platform Development Considerations
+
+### Target Platform Matrix
+
+```text
+  Development Host	  Target Platform	Cross-Compilation
+- Linux       x86_64	Windows x86_64	Go + MinGW-w64
+- macOS       x86_64	Windows x86_64	Go + MinGW-w64
+- WSL2	              Windows x86_64	Go + MinGW-w64
+```
 
 ## ⚠️ Legal & Ethical Disclaimer
 
@@ -53,6 +103,16 @@ Compiles to a Windows executable using cross-compilation, obfuscation (`garble`)
 - MinGW-w64 (`x86_64-w64-mingw32-gcc`)
 - `garble` (Go obfuscator)
 - `upx`
+
+### Go Module Dependencies
+
+```text
+Package	                  Purpose	Usage Location
+fmt	                      Formatted I/O operations	Error messages and user output
+syscall	                  System call interface	Windows API access for LoadLibrary/GetProcAddress
+unsafe	                  Unsafe pointer operations	Memory address manipulation
+golang.org/x/sys/windows	Windows-specific system calls	Advanced Windows API functions
+```
 
 Install `garble`:
 ```bash
