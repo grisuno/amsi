@@ -59,6 +59,13 @@ Build (from Linux/WSL)
 ```bash
 make windows
 ```
+or just:
+
+```bash
+./install.sh
+```
+
+
 Output:
 amsi.exe  # Obfuscated, compressed Windows executable
 
@@ -67,10 +74,15 @@ amsi.exe  # Obfuscated, compressed Windows executable
 ## ▶️ Usage
 
 Run on target Windows system:
-```cmd
 
+```cmd
 amsi.exe
 ```
+
+```powershell
+.\amsi.exe
+```
+
 Expected output:
 ```cmd
 [+] AMSI patched: AmsiScanBuffer replaced with ret
