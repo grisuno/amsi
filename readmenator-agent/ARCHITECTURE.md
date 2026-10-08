@@ -6,5 +6,8 @@
 
 ## External Imports
 
-- `amsi.go` -> fmt, golang.org/x/sys/windows, syscall, unsafe
-- `app.py` -> os
+- `amsi.go` -> `fmt`
+- `amsi.go` -> `golang.org/x/sys/windows`
+- `amsi.go` -> `syscall`
+- `amsi.go` -> `unsafe`
+- `app.py` -> `os`

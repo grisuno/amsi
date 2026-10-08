@@ -1,5 +1,9 @@
 # API
 
 ## amsi.go
-- `patchAMSI` (function) `amsi.go:11` `func patchAMSI(`
-- `main` (function) `amsi.go:79` `func main(`
+
+### patchAMSI (function) `func patchAMSI(`
+- Defined: `amsi.go:11`
+
+### main (function) `func main(`
+- Defined: `amsi.go:79`
